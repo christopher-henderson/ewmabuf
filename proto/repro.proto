@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "./;repro";
+
+package repro;
+
+service Repro {
+  rpc LargeClientStream (stream Bytes) returns (Empty) {}
+}
+
+message Empty {}
+
+message Bytes {
+  bytes message = 1;
+}

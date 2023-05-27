@@ -1,0 +1,21 @@
+Neither:
+RAM: 1.8
+CPU: 4.42
+
+Both:
+Mem: 1.1
+CPU: 3.76
+
+gRPC:
+Mem: 1.6
+CPU: 4.33
+
+PB:
+Mem: 1.5
+CPU: 4.06
+
+
+
+https://web.archive.org/web/20181222175223/http://people.ds.cam.ac.uk/fanf2/hermes/doc/antiforgery/stats.pdf
+
+https://stats.stackexchange.com/questions/111851/standard-deviation-of-an-exponentially-weighted-mean
