@@ -86,7 +86,7 @@ func TestStdDeviation_ComputeEWMA2(t *testing.T) {
 
 func TestStdDeviation_ComputeEWMA2WithBuf(t *testing.T) {
 	//kib := 1024
-	//bufSize := 64 * kib
+	//BufSize := 64 * kib
 	std := NewStdDeviation2(0.5)
 	deviation, mean := std.Compute(4)
 	t.Logf("4 => deviation: %f, mean: %f", deviation, mean)
