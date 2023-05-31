@@ -11,14 +11,13 @@ type EwmaBuffer struct {
 	variance          float64
 	standardDeviation float64
 
-	alpha        float64
-	resizeFactor float64
+	alpha float64
 
 	recentResize int
 }
 
-func NewEwmaBuffer(alpha float64, resizeFactor float64, initial int) *EwmaBuffer {
-	return &EwmaBuffer{alpha: alpha, resizeFactor: resizeFactor, buf: initial, mean: float64(initial)}
+func NewEwmaBuffer(alpha float64, initial int) *EwmaBuffer {
+	return &EwmaBuffer{alpha: alpha, buf: initial, mean: float64(initial)}
 }
 
 func (e *EwmaBuffer) BufferFor(requested int) []byte {
