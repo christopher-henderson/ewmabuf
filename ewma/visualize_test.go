@@ -34,7 +34,7 @@ func NewStatsRun(t *testing.T, path string) *StatsRun {
 		AverageOverAlloc: make([]float64, len(messages)),
 		sum:              0,
 		avg:              0,
-		buf:              NewEwmaBuffer(0.01, 0.5, 1024*64),
+		buf:              NewEwmaBuffer(0.25, 0.5, 1024*64),
 	}
 }
 

@@ -8,11 +8,12 @@ import numpy as np
 
 
 
-def normal_distribution() -> [int]:
+def normal_distribution(size, loc, scale) -> [int]:
+    # size=1000, loc=1024*1024*2, scale=1024*1024
     from numpy import random
     from pstream import Stream
     from math import floor
-    return Stream(random.normal(size=1000, loc=1024*1024*2, scale=1024*1024)).map(lambda x: max(x, 0)).map(floor).collect()
+    return Stream(random.normal(size=size, loc=loc, scale=scale)).map(lambda x: max(x, 0)).map(lambda x: min(x, 1024*1024*4)).map(floor).collect()
 
 
 def load():

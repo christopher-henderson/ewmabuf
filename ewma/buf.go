@@ -23,19 +23,35 @@ func NewEwmaBuffer(alpha float64, resizeFactor float64, initial int) *EwmaBuffer
 
 func (e *EwmaBuffer) BufferFor(requested int) []byte {
 	e.updateStatistics(float64(requested))
-	newBufSize := e.length()
-	if e.lengthf64() > e.mean+e.standardDeviation {
-		// We are trending towards requiring smaller buffers
-		// and need to resize downwards accordingly.
-		newBufSize = int(math.Floor(e.mean + e.standardDeviation*e.resizeFactor))
+
+	if requested > e.length() {
+		e.resize(requested + int(e.standardDeviation)/2)
+		//return make([]byte, 0)
 	}
-	if newBufSize < requested {
-		newBufSize = int(math.Floor(float64(requested) + e.standardDeviation*e.resizeFactor))
-	}
-	if newBufSize != e.length() {
-		e.resize(newBufSize)
+	if e.lengthf64() > e.mean+e.standardDeviation*3 {
+		//want := math.Max(float64(requested)+e.standardDeviation, e.mean+e.standardDeviation)
+		//e.resize(int(math.Ceil(want)))
+		e.resize((e.length() + requested) / 2)
 	}
 	return make([]byte, 0)
+
+	//newBufSize := e.length()
+	//if e.lengthf64() > e.mean+e.standardDeviation*2 {
+	//	// We are trending towards requiring smaller buffers
+	//	// and need to resize downwards accordingly.
+	//	newBufSize = int(math.Floor(e.mean + e.standardDeviation))
+	//}
+	//if newBufSize < requested {
+	//	if float64(requested) > e.mean+e.standardDeviation {
+	//		fmt.Println("well that's a thing")
+	//		e.recentResize = 5
+	//	}
+	//	newBufSize = int(math.Floor(float64(requested) + e.standardDeviation*e.resizeFactor))
+	//}
+	//if newBufSize != e.length() {
+	//	e.resize(newBufSize)
+	//}
+	//return make([]byte, 0)
 	//return e.buf[:requested]
 }
 
@@ -49,13 +65,13 @@ func (e *EwmaBuffer) updateStatistics(length float64) {
 }
 
 func (e *EwmaBuffer) resize(target int) {
-	if target < e.length() && e.recentResize > 0 {
-		e.recentResize -= 1
-		return
-	}
+	//if target < e.length() && e.recentResize > 0 {
+	//	e.recentResize -= 1
+	//	return
+	//}
+
 	//e.buf = make([]byte, target)
 	e.buf = target
-	e.recentResize = 10
 }
 
 func (e *EwmaBuffer) length() int {
